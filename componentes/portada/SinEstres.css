@@ -1,0 +1,90 @@
+/* "Viaja sin estrés": las seis promesas con íconos ilustrados. */
+.se {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 32px 0;
+  box-sizing: border-box;
+}
+.se h2 {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 44px;
+}
+.se-intro {
+  margin: 0 0 48px;
+  color: #e9e2d2;
+  max-width: 56ch;
+}
+.se-lista {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 32px;
+}
+.se-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: default;
+}
+/* Al pasar el mouse: el ícono sube, gira un poco y se ilumina el anillo dorado */
+.se-item img {
+  width: 112px;
+  height: 112px;
+  display: block;
+  border-radius: 50%;
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1.4),
+    box-shadow 0.5s;
+}
+.se-item:hover img,
+.se-item:active img {
+  transform: translateY(-6px) rotate(-5deg) scale(1.06);
+  box-shadow:
+    0 0 0 4px rgba(226, 192, 106, 0.3),
+    0 14px 26px rgba(0, 0, 0, 0.35);
+}
+.se-item b {
+  font-size: 18px;
+  transition: color 0.3s;
+}
+.se-item:hover b {
+  color: var(--oro);
+}
+.se-item span {
+  color: #c9cfc9;
+  font-size: 15px;
+}
+/* Cuando el ícono entra en pantalla, salta (ver ArmarAlBajar) */
+.se-item.armado img {
+  animation: salta-icono 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.5) backwards;
+  animation-delay: calc(var(--d, 0s) + 0.15s);
+}
+@keyframes salta-icono {
+  from {
+    transform: scale(0.6) rotate(-12deg);
+  }
+}
+
+@media (max-width: 820px) {
+  .se {
+    padding: 80px 16px 0;
+  }
+  .se h2 {
+    font-size: clamp(30px, 8.5vw, 44px);
+  }
+  .se-intro {
+    margin-bottom: 32px;
+  }
+  .se-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+  .se-item img {
+    width: 84px;
+    height: 84px;
+  }
+  .se-item b {
+    font-size: 16px;
+  }
+}

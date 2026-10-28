@@ -1,0 +1,192 @@
+/* Ventanas laterales (dialog) y botones que comparten el planner, el chat, la cuenta y la ficha de producto.
+   Colores: los tokens de app/base.css (turquesa = comprar). */
+/* ---------- Ventanas (dialog) ---------- */
+.ventana {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(560px, 100vw);
+  height: 100dvh;
+  max-height: none;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: var(--noche, #0b1f1a);
+  color: var(--crema, #fff7ea);
+  font-family: var(--texto, "Barlow", system-ui, sans-serif);
+  box-shadow: -24px 0 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.ventana[open] {
+  display: flex;
+  flex-direction: column;
+  animation: ventana-entra 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ventana::backdrop {
+  background: rgba(5, 14, 11, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: velo-entra 0.3s;
+}
+.ventana.cerrando {
+  animation: ventana-sale 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+@keyframes ventana-entra {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes ventana-sale {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes velo-entra {
+  from {
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  /* En celular sube desde abajo como una hoja */
+  .ventana {
+    inset: auto 0 0 0;
+    width: 100vw;
+    height: 94dvh;
+    border-radius: 20px 20px 0 0;
+  }
+  .ventana[open] {
+    animation-name: hoja-entra;
+  }
+  .ventana.cerrando {
+    animation-name: hoja-sale;
+  }
+  @keyframes hoja-entra {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes hoja-sale {
+    to {
+      transform: translateY(100%);
+    }
+  }
+}
+.v-cab {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--linea, rgba(226, 192, 106, 0.28));
+}
+.v-cab h2 {
+  margin: 0;
+  font-family: var(--display, "Syne", sans-serif);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.v-cab small {
+  display: block;
+  color: var(--gris, #a9b5ae);
+  font-size: 14px;
+}
+.v-cerrar {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--linea, rgba(226, 192, 106, 0.28));
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+.v-cerrar:hover {
+  background: rgba(255, 247, 234, 0.08);
+}
+.v-cuerpo {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 24px 24px;
+}
+.v-pie {
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--linea, rgba(226, 192, 106, 0.28));
+  display: grid;
+  gap: 10px;
+  background: var(--selva, #0f2a23);
+}
+.v-paso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0 12px;
+  font-family: var(--display, "Syne", sans-serif);
+  font-weight: 700;
+  font-size: 18px;
+}
+.v-paso b {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--oro, #e2c06a);
+  color: var(--noche, #0b1f1a);
+  font-size: 14px;
+}
+
+/* ---------- Botones ---------- */
+.b-comprar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--compra, #00a6a6);
+  color: var(--noche, #0b1f1a);
+  font: 700 17px var(--texto, "Barlow", sans-serif);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.b-comprar:hover {
+  background: var(--compra-vivo, #16c2be);
+  transform: translateY(-1px);
+}
+.b-comprar:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+.b-suave {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1.5px solid var(--oro, #e2c06a);
+  border-radius: 6px;
+  background: none;
+  color: var(--crema, #fff7ea);
+  font: 700 16px var(--texto, "Barlow", sans-serif);
+  cursor: pointer;
+}
+.b-suave:hover {
+  background: rgba(226, 192, 106, 0.12);
+}
+.v-aviso {
+  margin: 0;
+  font-size: 14px;
+  color: var(--oro-vivo, #f2d27e);
+  text-align: center;
+}

@@ -1,0 +1,39 @@
+/* ---------- Color de la línea del recorrido ---------- */
+.ruta-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--gris, #a9b5ae);
+}
+.ruta-color.ruta-color--suelta {
+  display: flex;
+  margin: 12px 0 0;
+}
+.ruta-color span {
+  margin-right: 2px;
+}
+.ruta-color button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--sw);
+  box-shadow: inset 0 0 0 2px var(--noche, #0b1f1a);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s;
+}
+.ruta-color button:hover {
+  transform: scale(1.12);
+}
+.ruta-color button[aria-pressed="true"] {
+  border-color: var(--sw);
+}
+@media (pointer: coarse) {
+  .ruta-color button {
+    width: 32px;
+    height: 32px;
+  }
+}

@@ -1,0 +1,122 @@
+/* Barra de filtros: queda pegada bajo el menú al bajar */
+.filtros {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 63px);
+  z-index: 20;
+  background: var(--noche);
+  padding-block: 14px;
+  border-bottom: 1px solid var(--linea);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  align-items: center;
+}
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--linea);
+  background: none;
+  color: var(--crema);
+  font: 600 15px var(--texto);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.chips button i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c, var(--oro));
+}
+.chips button:hover {
+  border-color: var(--oro);
+}
+.chips button[aria-pressed="true"] {
+  background: var(--crema);
+  color: var(--noche);
+  border-color: var(--crema);
+}
+.chips.tipo button {
+  min-height: 34px;
+  font-size: 14px;
+  color: var(--gris);
+}
+.chips.tipo button[aria-pressed="true"] {
+  background: none;
+  color: var(--crema);
+  border-color: var(--oro);
+}
+.cuantos {
+  margin-left: auto;
+  color: var(--gris);
+  font-size: 14px;
+}
+/* Sin resultados con el filtro elegido */
+.vacio {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--gris);
+  padding: 48px 0;
+}
+
+/* Letrero con punto de color sobre una foto */
+.etiqueta {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(11, 31, 26, 0.78);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.etiqueta i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+/* En celular los filtros se deslizan de lado en vez de bajar de línea */
+@media (max-width: 820px) {
+  .filtros {
+    top: calc(env(safe-area-inset-top, 0px) + 57px);
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-block: 10px;
+  }
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1) calc(var(--gutter-d) * -1);
+    padding-inline: var(--gutter) var(--gutter-d);
+  }
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+  .chips button {
+    flex: none;
+  }
+  .cuantos {
+    display: none;
+  }
+}

@@ -1,0 +1,97 @@
+/* Pie de página grande (portada): logo, zonas, ayuda y redes. */
+.pie-grande {
+  border-top: 1px solid rgba(226, 192, 106, 0.35);
+  background: #08170f;
+}
+.pie-cols {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 32px 32px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+.pie-marca {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pie-marca img {
+  width: 200px;
+  height: auto;
+}
+.pie-marca span {
+  color: var(--gris);
+  font-size: 15px;
+}
+.pie-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+}
+.pie-col b {
+  color: var(--oro);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.pie-col a {
+  color: var(--crema);
+  text-decoration: none;
+}
+.pie-col a:hover {
+  color: var(--oro-vivo);
+}
+.pie-redes {
+  display: flex;
+  gap: 12px;
+}
+.pie-redes a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--oro);
+  border-radius: 50%;
+  color: var(--oro);
+}
+.pie-legal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--gris);
+  font-size: 13px;
+  border-top: 1px solid rgba(255, 247, 234, 0.08);
+}
+
+/* Celular: 2 columnas; logo y redes a lo ancho */
+@media (max-width: 820px) {
+  .pie-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 48px 16px 24px;
+    gap: 32px 20px;
+  }
+  .pie-marca,
+  .pie-col:last-child {
+    grid-column: 1 / -1;
+  }
+  .pie-marca img {
+    width: 160px;
+  }
+  .pie-redes {
+    flex-wrap: wrap;
+  }
+  .pie-legal {
+    padding: 20px 16px 32px;
+    flex-direction: column;
+    gap: 6px;
+  }
+}

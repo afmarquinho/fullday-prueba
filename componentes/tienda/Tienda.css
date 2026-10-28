@@ -1,0 +1,332 @@
+/* Tienda: grilla de productos, ficha en la ventana lateral, aviso al agregar y secciones de abajo. */
+
+/* ---------- Productos ---------- */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px 22px;
+  padding-block: 32px 96px;
+}
+.prod {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  animation: prod-entra 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+@keyframes prod-entra {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.prod-foto {
+  all: unset;
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--selva);
+}
+.prod-foto svg,
+.prod-foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.prod-foto:hover svg,
+.prod-foto:hover img {
+  scale: 1.05;
+}
+.prod-foto:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+  outline-offset: 3px;
+}
+.prod h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.2;
+}
+.prod h3 button {
+  all: unset;
+  cursor: pointer;
+}
+.prod h3 button:hover {
+  color: var(--oro-vivo);
+}
+.prod .quien {
+  margin: -4px 0 0;
+  color: var(--gris);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.prod-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+.prod-pie b {
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+}
+/* Turquesa = comprar (regla de marca) */
+.agregar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--compra);
+  color: var(--noche);
+  font: 700 15px var(--texto);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.agregar:hover {
+  background: var(--compra-vivo);
+  transform: translateY(-1px);
+}
+.agregar.listo {
+  background: var(--crema);
+}
+
+/* ---------- Ficha del producto (ventana lateral) ---------- */
+.producto .v-cab h2 {
+  font-size: 22px;
+}
+.producto .v-cuerpo {
+  padding: 0 0 24px;
+}
+.ficha-foto {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--selva);
+}
+.ficha-foto svg,
+.ficha-foto img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.ficha {
+  padding: 20px 24px 0;
+  display: grid;
+  gap: 16px;
+}
+.ficha-precio {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ficha-precio small {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gris);
+  margin-left: 8px;
+}
+.ficha p {
+  margin: 0;
+}
+.datos-ficha {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--linea);
+}
+.datos-ficha li {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--linea);
+  font-size: 15px;
+}
+.datos-ficha span {
+  color: var(--gris);
+}
+.datos-ficha .recibe b {
+  color: var(--oro-vivo);
+}
+.ficha-opcion {
+  display: grid;
+  gap: 8px;
+}
+.ficha-opcion > span {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+  font-weight: 700;
+}
+.ficha-opcion .chips button {
+  min-height: 40px;
+  min-width: 48px;
+  justify-content: center;
+}
+.provisional {
+  font-size: 13px;
+  color: var(--gris);
+  font-style: italic;
+}
+.ficha-pie {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.ficha-pie .p-cant {
+  flex: none;
+}
+.ficha-pie .b-comprar {
+  flex: 1;
+}
+
+/* ---------- Aviso al agregar ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 70;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px 12px 20px;
+  border-radius: 12px;
+  background: var(--crema);
+  color: var(--noche);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  font-weight: 600;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  transform: translateY(0);
+}
+.toast[hidden] {
+  display: flex;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+.toast button {
+  color: var(--noche);
+  background: none;
+  white-space: nowrap;
+  font: 700 15px var(--texto);
+  border: 1.5px solid var(--noche);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* ---------- Entrega y reglas ---------- */
+.tienda-seccion {
+  padding-block: 88px 0;
+  border-top: 1px solid var(--linea);
+}
+.tienda-seccion h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 10px 0 28px;
+}
+.tienda-tres {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.tienda-tres div {
+  padding: 22px;
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+}
+.tienda-tres b {
+  display: block;
+  font-family: var(--display);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+.tienda-tres p {
+  margin: 0;
+  color: var(--gris);
+  font-size: 16px;
+}
+.tienda-tres .en-estudio {
+  border-style: dashed;
+}
+.no-vendemos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 32px;
+}
+.no-vendemos li {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linea);
+}
+.no-vendemos li::before {
+  content: "×";
+  color: var(--oro);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+/* El pie va más separado en la tienda */
+.tienda-seccion:last-of-type {
+  margin-bottom: 120px;
+}
+
+@media (max-width: 820px) {
+  .grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 12px;
+  }
+  .prod h3 {
+    font-size: 16px;
+  }
+  .prod .quien {
+    font-size: 13px;
+  }
+  .prod-pie {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .prod-pie b {
+    font-size: 17px;
+  }
+  .agregar {
+    justify-content: center;
+  }
+  .tienda-tres,
+  .no-vendemos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .datos-ficha li {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+  .tienda-seccion:last-of-type {
+    margin-bottom: 80px;
+  }
+}

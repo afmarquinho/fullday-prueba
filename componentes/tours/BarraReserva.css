@@ -1,0 +1,50 @@
+/* Barra de reserva flotante: aparece al dejar la portada del tour y se oculta al llegar al armador. */
+.barra {
+  position: fixed;
+  z-index: 40;
+  right: max(24px, env(safe-area-inset-right, 0px));
+  bottom: max(24px, env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 10px 10px 22px;
+  border-radius: 14px;
+  background: rgba(11, 31, 26, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 192, 106, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transform: translateY(140%);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.barra.ver {
+  transform: none;
+}
+.barra div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.barra small {
+  color: var(--gris);
+  font-size: 12px;
+}
+.barra b {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.barra .reservar {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 16px;
+}
+@media (max-width: 820px) {
+  .barra {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    padding: 10px var(--gutter-d) max(10px, env(safe-area-inset-bottom, 0px)) var(--gutter);
+    justify-content: space-between;
+  }
+}

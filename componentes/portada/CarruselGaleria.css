@@ -1,0 +1,260 @@
+/* "Así se vive cada día": carrusel de cine. La foto del centro va grande y recta;
+   las de los lados, más pequeñas e inclinadas, con parallax interno. */
+.car {
+  padding: 120px 0 0;
+  --car-ancho: min(58vw, 760px);
+}
+.car-cab {
+  max-width: 1200px;
+  margin: 0 auto 28px;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+.car-cab h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 1.05;
+}
+.car-marco {
+  position: relative;
+}
+.car-pista {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+  perspective: 1400px;
+  padding: 24px calc(50% - var(--car-ancho) / 2) 8px;
+  box-sizing: border-box;
+}
+.car-pista::-webkit-scrollbar {
+  display: none;
+}
+.car-item {
+  margin: 0;
+  flex: 0 0 var(--car-ancho);
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  will-change: transform;
+  transform-origin: 50% 50%;
+}
+.car-foto {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--selva-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  outline: 1px solid rgba(226, 192, 106, 0.25);
+  outline-offset: -1px;
+}
+.car-foto > img {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+/* Cuadro sin foto todavía */
+.car-vacia {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--gris);
+  font-size: 14px;
+  background: repeating-linear-gradient(135deg, #163b31 0 14px, #183f35 14px 28px);
+}
+.car-item figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 0 4px;
+  transition: opacity 0.3s;
+}
+.car-dia {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--oro);
+}
+.car-item figcaption b {
+  font-size: 17px;
+}
+.car-item figcaption small {
+  margin-left: auto;
+  color: var(--gris);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+/* "Video": por ahora, la escena viva del héroe; luego un video real */
+.car-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #e88a7a;
+}
+.car-video .lienzo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 132%;
+  aspect-ratio: 2784 / 1740;
+  transform: translate(-50%, -50%);
+  animation: car-deriva 14s ease-in-out infinite alternate;
+}
+.car-video .lienzo-img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  height: auto;
+}
+@keyframes car-deriva {
+  to {
+    transform: translate(calc(-50% + var(--dx, 0px)), -50%) scale(1.04);
+  }
+}
+.car-marca {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(11, 31, 26, 0.6);
+  backdrop-filter: blur(6px);
+  color: var(--crema);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.car-marca::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5a4e;
+  animation: car-latido 1.4s ease-in-out infinite;
+}
+@keyframes car-latido {
+  50% {
+    opacity: 0.25;
+  }
+}
+/* Flechas y puntos */
+.car-flecha {
+  position: absolute;
+  z-index: 30;
+  top: calc(50% - 30px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(226, 192, 106, 0.55);
+  background: rgba(11, 31, 26, 0.45);
+  backdrop-filter: blur(6px);
+  color: var(--crema);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0.7;
+  transition:
+    opacity 0.25s,
+    background 0.25s,
+    transform 0.25s;
+}
+.car-flecha svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.car-flecha:hover {
+  opacity: 1;
+  background: rgba(11, 31, 26, 0.75);
+}
+.car-flecha:active {
+  transform: scale(0.92);
+}
+.car-flecha[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
+.car-flecha.ant {
+  left: calc(50% - var(--car-ancho) / 2 - 22px);
+}
+.car-flecha.sig {
+  right: calc(50% - var(--car-ancho) / 2 - 22px);
+}
+.car-puntos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+.car-puntos button {
+  all: unset;
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 247, 234, 0.3);
+  transition:
+    width 0.3s,
+    background 0.3s;
+}
+.car-puntos button[aria-current] {
+  width: 28px;
+  background: var(--oro);
+}
+
+@media (max-width: 820px) {
+  .car {
+    padding-top: 80px;
+    --car-ancho: 78vw;
+  }
+  .car-cab {
+    padding: 0 16px;
+  }
+  .car-cab h2 {
+    font-size: clamp(28px, 8vw, 44px);
+  }
+  .car-flecha {
+    width: 38px;
+    height: 38px;
+    top: calc(50% - 28px);
+  }
+  .car-flecha.ant {
+    left: 6px;
+  }
+  .car-flecha.sig {
+    right: 6px;
+  }
+  .car-foto {
+    aspect-ratio: 4 / 5;
+  }
+  .car-dia {
+    font-size: 24px;
+  }
+  .car-item figcaption b {
+    font-size: 15px;
+  }
+  .car-item figcaption small {
+    display: none;
+  }
+}

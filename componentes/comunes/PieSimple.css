@@ -1,0 +1,22 @@
+/* Pie de página corto (tours, galería y tienda). */
+.pie-simple {
+  margin-top: 120px;
+  padding-block: 40px;
+  border-top: 1px solid rgba(226, 192, 106, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  color: var(--gris);
+  font-size: 14px;
+}
+.pie-simple img {
+  height: 30px;
+}
+@media (max-width: 820px) {
+  .pie-simple {
+    margin-top: 80px;
+    padding-bottom: 96px; /* deja ver el pie por encima de la barra de reserva */
+  }
+}

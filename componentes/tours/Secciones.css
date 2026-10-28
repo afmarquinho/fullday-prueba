@@ -1,0 +1,223 @@
+/* Secciones cortas de cada tour: tours sueltos, galería, preguntas y "Combínalo". */
+
+/* ---------- Tours sueltos ---------- */
+.sueltos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+}
+.suelto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px;
+  border-radius: 14px;
+  border: 1px solid var(--linea);
+}
+.suelto small {
+  color: var(--gris);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+.suelto h3 {
+  margin: 0;
+  font-size: 21px;
+}
+.suelto p {
+  margin: 0;
+  color: #dce3de;
+  font-size: 16px;
+}
+.suelto-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 12px;
+  flex-wrap: wrap;
+}
+.suelto-pie b {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.suelto-pie button {
+  all: unset;
+  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 6px;
+  background: var(--compra);
+  color: var(--noche);
+  font-weight: 700;
+  font-size: 15px;
+}
+.suelto-pie button:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+  outline-offset: 2px;
+}
+
+/* ---------- Galería corta ---------- */
+.tira {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+.tira figure {
+  flex: 0 0 min(78vw, 420px);
+  margin: 0;
+  scroll-snap-align: start;
+}
+.tira-foto {
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, #163b31 0 14px, #183f35 14px 28px);
+  display: grid;
+  place-items: center;
+  color: var(--gris);
+  font-size: 14px;
+}
+.tira-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tira figcaption {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* ---------- Preguntas ---------- */
+.preguntas {
+  max-width: 820px;
+}
+.preguntas details {
+  border-bottom: 1px solid var(--linea);
+}
+.preguntas summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+.preguntas summary::-webkit-details-marker {
+  display: none;
+}
+.preguntas summary::after {
+  content: "+";
+  color: var(--oro);
+  font: 400 26px/1 var(--texto);
+  transition: transform 0.3s;
+}
+.preguntas details[open] summary::after {
+  transform: rotate(45deg);
+}
+.preguntas details p {
+  margin: 0 0 22px;
+  color: #dce3de;
+  max-width: 64ch;
+}
+
+/* ---------- Combínalo (y zonas de Expedition y Xanadu) ---------- */
+.combina {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+}
+.combina a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 260px;
+  padding: 22px;
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--crema);
+  text-decoration: none;
+  isolation: isolate;
+}
+.combina img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  transition: scale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.combina a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(11, 31, 26, 0) 30%, rgba(11, 31, 26, 0.92));
+}
+.combina a:hover img {
+  scale: 1.06;
+}
+.combina small {
+  color: var(--oro-vivo);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.combina b {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.combina span {
+  font-size: 15px;
+}
+.combina .destacada {
+  outline: 2px solid var(--oro);
+  outline-offset: -2px;
+}
+
+/* ---------- Expedition y Xanadu: los tres pasos ---------- */
+.pasos-nivel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+}
+.pasos-nivel li {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--selva);
+  border: 1px solid var(--linea);
+}
+.pasos-nivel b {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--oro);
+}
+.pasos-nivel strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.pasos-nivel small {
+  color: var(--gris);
+  font-size: 15px;
+  line-height: 1.45;
+}

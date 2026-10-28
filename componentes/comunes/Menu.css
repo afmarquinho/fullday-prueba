@@ -1,0 +1,179 @@
+/* Menú superior. Dos variantes:
+   - portada: fijo y transparente sobre el héroe; se vuelve sólido al bajar y el logo pequeño aparece
+   - fija: siempre sólido (tours, galería y tienda) */
+.ns {
+  z-index: 50;
+  top: env(safe-area-inset-top, 0px);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.ns-logo img {
+  width: auto;
+  display: block;
+}
+.ns nav {
+  display: flex;
+  margin-left: auto;
+}
+.ns nav a,
+.ns .ns-planner,
+.ns .ns-ingresar {
+  color: var(--crema);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+.ns .ns-planner {
+  border: 1.5px solid var(--oro);
+  border-radius: 999px;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+.ns-acciones {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.ns .ns-ingresar {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-right: 14px;
+  background: none;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.ns .ns-ingresar:hover {
+  color: var(--oro-vivo);
+}
+/* Número de viajes y productos junto a "Mi planner" */
+.ns-cuenta {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 8px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--compra);
+  color: var(--noche);
+  font-size: 13px;
+  font-weight: 800;
+  animation: ns-cuenta-pop 0.5s cubic-bezier(0.2, 1.8, 0.4, 1);
+}
+@keyframes ns-cuenta-pop {
+  from {
+    transform: scale(0);
+  }
+}
+
+/* ---------- Variante portada ---------- */
+.ns--portada {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding: 18px max(24px, env(safe-area-inset-right, 0px)) 18px max(24px, env(safe-area-inset-left, 0px));
+  transition: background 0.3s;
+}
+.ns--portada.ns-solida {
+  background: rgba(11, 31, 26, 0.94);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+.ns--portada .ns-logo img {
+  height: 38px;
+}
+.ns--portada nav {
+  gap: 26px;
+}
+.ns--portada nav a,
+.ns--portada .ns-planner {
+  text-shadow: 0 1px 1px rgba(11, 31, 26, 0.55);
+}
+.ns--portada .ns-planner {
+  padding: 8px 18px;
+}
+/* El logo pequeño se oculta mientras se ve el logo grande del héroe */
+.ns--portada .ns-logo {
+  transition: opacity 0.3s;
+}
+.ns--portada:not(.ns-solida) .ns-logo {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Variante fija ---------- */
+.ns--fija {
+  position: sticky;
+  padding: 14px var(--gutter-d) 14px var(--gutter);
+  background: rgba(11, 31, 26, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(226, 192, 106, 0.12);
+}
+.ns--fija .ns-logo img {
+  height: 34px;
+}
+.ns--fija nav {
+  gap: 24px;
+}
+.ns--fija nav a {
+  opacity: 0.8;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+}
+.ns--fija nav a[aria-current] {
+  opacity: 1;
+  border-color: var(--oro);
+}
+.ns--fija .ns-planner {
+  padding: 7px 16px;
+}
+/* Franja de la muesca del celular: color noche detrás del menú fijo */
+body:has(.ns--fija)::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 60;
+  background: var(--noche);
+}
+
+@media (max-width: 900px) {
+  .ns-acciones {
+    margin-left: auto;
+  }
+}
+@media (max-width: 820px) {
+  .ns nav {
+    display: none;
+  }
+  .ns {
+    gap: 12px;
+  }
+  .ns .ns-planner {
+    margin-left: auto;
+    font-size: 14px;
+  }
+  .ns--portada {
+    padding: 12px 16px;
+  }
+  .ns--portada .ns-logo img {
+    height: 30px;
+  }
+  .ns--portada .ns-planner {
+    padding: 7px 14px;
+  }
+  .ns--portada.ns-solida {
+    background: var(--noche);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+  .ns--fija .ns-logo img {
+    height: 28px;
+  }
+  .ns--fija .ns-planner {
+    padding: 6px 13px;
+  }
+}

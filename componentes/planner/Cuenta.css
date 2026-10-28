@@ -1,0 +1,134 @@
+/* ---------- Cuenta ---------- */
+.ventana-cuenta {
+  width: min(480px, 100vw);
+}
+.cuenta-form {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding-top: 20px;
+}
+.cuenta-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gris, #a9b5ae);
+}
+.cuenta-form label small {
+  font-weight: 400;
+}
+.cuenta-form input:not([type="checkbox"]) {
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--linea, rgba(226, 192, 106, 0.28));
+  background: var(--selva, #0f2a23);
+  color: var(--crema, #fff7ea);
+  font: 16px var(--texto, "Barlow", sans-serif);
+}
+.cuenta-form input:focus {
+  outline: 2px solid var(--oro, #e2c06a);
+  outline-offset: 1px;
+}
+.cuenta-form .acepto {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.cuenta-form .acepto input {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  accent-color: var(--compra, #00a6a6);
+}
+.b-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--crema, #fff7ea);
+  color: var(--noche, #0b1f1a);
+  font: 700 16px var(--texto, "Barlow", sans-serif);
+  cursor: pointer;
+}
+.b-google span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #ddd;
+  font-weight: 800;
+  color: #4285f4;
+}
+.cuenta-o {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 0;
+  color: var(--gris, #a9b5ae);
+  font-size: 14px;
+}
+.cuenta-o::before,
+.cuenta-o::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--linea, rgba(226, 192, 106, 0.28));
+}
+.c-codigo {
+  min-height: 18px;
+  font-weight: 600;
+}
+.c-codigo.ok {
+  color: #7bd8a6;
+}
+.c-codigo.mal {
+  color: #f39a7b;
+}
+.cuenta-cambio {
+  margin: 0;
+  text-align: center;
+  color: var(--gris, #a9b5ae);
+  font-size: 15px;
+}
+.cuenta-cambio a {
+  color: var(--oro-vivo, #f2d27e);
+  font-weight: 700;
+}
+.cuenta-codigo {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+.cuenta-codigo input {
+  text-align: center;
+  font-family: var(--display, "Syne", sans-serif) !important;
+  font-weight: 800 !important;
+  font-size: 24px !important;
+  padding: 0 !important;
+  min-height: 58px !important;
+}
+.cuenta-perfil {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+}
+.cuenta-perfil li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--linea, rgba(226, 192, 106, 0.28));
+  font-size: 15px;
+}
+.cuenta-perfil span {
+  color: var(--gris, #a9b5ae);
+}

@@ -1,0 +1,89 @@
+/* =====================================================================
+   Base de todo el sitio: colores de la marca, letras y piezas mínimas.
+   Cada sección tiene su propio archivo .css junto a su componente.
+   Regla: no reutilices un nombre de clase entre secciones (todos los .css quedan cargados a la vez).
+   ===================================================================== */
+:root {
+  /* Colores de la marca (manual de identidad v2) */
+  --noche: #0b1f1a;
+  --selva: #0f2a23;
+  --selva-2: #163b31;
+  --crema: #fff7ea;
+  --gris: #a9b5ae;
+  --oro: #e2c06a;
+  --oro-vivo: #f2d27e;
+  /* Turquesa = comprar o reservar. Solo se usa en botones de compra. */
+  --compra: #00a6a6;
+  --compra-vivo: #16c2be;
+  --linea: rgba(226, 192, 106, 0.28);
+  /* Letras: Syne para títulos, Barlow para textos (las carga app/layout.tsx) */
+  --display: var(--fuente-syne), "Syne", system-ui, sans-serif;
+  --texto: var(--fuente-barlow), "Barlow", system-ui, sans-serif;
+  /* Márgenes laterales, respetando la muesca de los celulares */
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-d: max(16px, env(safe-area-inset-right, 0px));
+  --ancho: 1240px;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--noche);
+  color: var(--crema);
+  font-family: var(--texto);
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 0;
+  overflow-x: hidden;
+}
+a {
+  color: var(--oro);
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+  outline-offset: 3px;
+}
+
+/* Contenedor centrado con márgenes laterales */
+.caja {
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter-d);
+  box-sizing: border-box;
+}
+
+/* Texto pequeño en mayúsculas sobre los títulos */
+.ceja {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+}
+
+/* Solo para lectores de pantalla */
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

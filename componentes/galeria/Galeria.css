@@ -1,0 +1,268 @@
+/* Galería: muro de fotos en columnas tipo revista y visor ampliado. */
+
+/* ---------- Muro ---------- */
+.muro {
+  columns: 3 300px;
+  column-gap: 18px;
+  padding-block: 32px 96px;
+}
+.muro-pieza {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 18px;
+  break-inside: avoid;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: var(--selva);
+  animation: pieza-entra 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: calc(var(--i) * 35ms);
+}
+@keyframes pieza-entra {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+/* Formas: alto 4:5, ancho 16:10, cuadro 1:1 */
+.muro-pieza.alto {
+  aspect-ratio: 4/5;
+}
+.muro-pieza.ancho {
+  aspect-ratio: 16/10;
+}
+.muro-pieza.cuadro {
+  aspect-ratio: 1;
+}
+.muro-pieza img,
+.muro-pieza video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.muro-pieza:hover img {
+  scale: 1.05;
+}
+.muro-pieza:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+  outline-offset: 3px;
+}
+.muro-pieza::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5, 14, 11, 0.85), transparent 45%);
+  pointer-events: none;
+}
+.pie-foto {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+}
+.pie-foto b {
+  font-family: var(--display);
+  font-size: 17px;
+  line-height: 1.2;
+}
+.pie-foto small {
+  color: var(--gris);
+  font-size: 13px;
+}
+/* Triángulo de "video" */
+.muro-play {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(11, 31, 26, 0.78);
+  display: grid;
+  place-items: center;
+}
+.muro-play::before {
+  content: "";
+  border-left: 11px solid var(--crema);
+  border-block: 7px solid transparent;
+  margin-left: 3px;
+}
+/* Espacio vacío: dice qué foto va ahí hasta que llegue la real */
+.foto-falta {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  background-color: var(--selva);
+  background-image:
+    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--c) 30%, transparent), transparent 70%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 12px, transparent 12px 24px);
+}
+.foto-falta span {
+  font-size: 13px;
+  color: var(--gris);
+  border: 1px dashed var(--linea);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+/* ---------- Visor ampliado ---------- */
+.visor {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(5, 14, 11, 0.96);
+  color: var(--crema);
+}
+.visor[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  animation: visor-entra 0.3s;
+}
+@keyframes visor-entra {
+  from {
+    opacity: 0;
+  }
+}
+.visor::backdrop {
+  background: transparent;
+}
+.visor-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px var(--gutter-d) 14px var(--gutter);
+}
+.visor-cab span {
+  color: var(--gris);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.visor button {
+  all: unset;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--linea);
+  font-size: 22px;
+  line-height: 1;
+}
+.visor button:hover {
+  border-color: var(--oro);
+}
+.visor button:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+  outline-offset: 3px;
+}
+.visor-escena {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0 72px;
+  min-height: 0;
+}
+.visor-marco {
+  position: relative;
+  width: min(100%, 1200px);
+  height: 100%;
+  max-height: 78dvh;
+  display: grid;
+  place-items: center;
+}
+.visor-escena img,
+.visor-escena video {
+  max-width: 100%;
+  max-height: 78dvh;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.visor-escena .foto-falta {
+  position: relative;
+  inset: auto;
+  width: min(100%, 720px);
+  aspect-ratio: 4/3;
+  border-radius: 14px;
+}
+.visor .visor-ant,
+.visor .visor-sig {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+.visor .visor-ant {
+  left: var(--gutter);
+}
+.visor .visor-sig {
+  right: var(--gutter-d);
+}
+.visor-pie {
+  padding: 16px var(--gutter-d) calc(20px + env(safe-area-inset-bottom, 0px)) var(--gutter);
+  text-align: center;
+}
+.visor-pie b {
+  display: block;
+  font-family: var(--display);
+  font-size: 22px;
+}
+.visor-pie small {
+  color: var(--gris);
+  font-size: 15px;
+}
+.visor-pie a {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
+  .muro {
+    columns: 2;
+    column-gap: 10px;
+  }
+  .muro-pieza {
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  .muro-pieza .etiqueta {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+  .pie-foto b {
+    font-size: 14px;
+  }
+  .pie-foto small {
+    font-size: 12px;
+  }
+  .muro .foto-falta span {
+    display: none;
+  }
+  .visor-escena {
+    padding: 0 var(--gutter);
+  }
+  .visor .visor-ant,
+  .visor .visor-sig {
+    display: none;
+  }
+}

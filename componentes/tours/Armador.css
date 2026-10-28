@@ -1,0 +1,492 @@
+/* "Arma tu tour": opciones a la izquierda (días, lo básico, actividades) y resumen fijo a la derecha. */
+.arma {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: 40px;
+  align-items: start;
+}
+.arma-resumen {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 84px);
+  margin-top: 68px;
+}
+.arma-paso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 36px 0 16px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 20px;
+}
+.arma-paso > b {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--oro);
+  color: var(--noche);
+  font-size: 15px;
+}
+.leyenda {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 13px var(--texto);
+  color: var(--gris);
+}
+
+/* ---------- 1. Días por zona, con la agenda de cada una ---------- */
+.dias-zonas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+}
+.zona-dias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--selva);
+  border: 1px solid rgba(226, 192, 106, 0.12);
+  border-top: 3px solid var(--c);
+}
+.zd-cab b {
+  display: block;
+  font-size: 17px;
+}
+.zd-cab small {
+  color: var(--gris);
+  font-size: 13px;
+}
+.contador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.zona-dias .contador {
+  justify-content: flex-start;
+}
+.contador div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.contador button {
+  all: unset;
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(226, 192, 106, 0.45);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  color: var(--crema);
+}
+.contador button:focus-visible {
+  outline: 2px solid var(--oro-vivo);
+}
+.contador button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.contador output {
+  min-width: 2ch;
+  text-align: center;
+  font: 700 20px var(--texto);
+  color: var(--crema);
+  font-variant-numeric: tabular-nums;
+}
+.contador-txt {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gris);
+}
+.agenda {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 247, 234, 0.12);
+  overflow: hidden;
+}
+.agenda i {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  transition: width 0.3s;
+}
+.agenda i.pasado {
+  background: #e8622a;
+}
+.agenda-txt {
+  color: var(--gris);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.aviso-falta {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(232, 98, 42, 0.14);
+  color: #f6b08c;
+  font-size: 13px;
+}
+.empresa-sw {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px dashed rgba(184, 199, 188, 0.4);
+  cursor: pointer;
+}
+.empresa-sw input {
+  accent-color: #b8c7bc;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  flex: none;
+}
+.empresa-sw b {
+  display: block;
+}
+.empresa-sw small {
+  color: var(--gris);
+  font-size: 13px;
+}
+.empresa-sw:has(input:checked) {
+  border-style: solid;
+  border-color: #b8c7bc;
+  background: var(--selva-2);
+}
+
+/* ---------- 2. Lo básico y 3. Actividades ---------- */
+.grupo {
+  border: 0;
+  margin: 0 0 22px;
+  padding: 0;
+  min-width: 0;
+}
+.grupo legend {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--gris);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding: 0;
+}
+.ops {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 10px;
+}
+.op,
+.act {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--selva);
+  border: 1px solid rgba(226, 192, 106, 0.12);
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+.op {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.op:has(input:checked),
+.act:has(input:checked) {
+  border-color: var(--oro);
+  background: var(--selva-2);
+}
+.op input,
+.act input {
+  accent-color: var(--oro);
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  flex: none;
+}
+.op > span,
+.act > span {
+  flex: 1;
+  min-width: 0;
+}
+.op b,
+.act b {
+  display: block;
+  font-size: 16px;
+}
+.op small,
+.act small {
+  display: block;
+  color: var(--gris);
+  font-size: 13px;
+  line-height: 1.35;
+}
+/* Etiqueta: Incluido / Por cotizar */
+.op em,
+.act em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: #e8a33d;
+  white-space: nowrap;
+}
+.op em {
+  flex-basis: 100%;
+  padding-left: 30px;
+}
+.op em.incl,
+.act em.incl {
+  color: var(--oro-vivo);
+}
+.op.sube-expedition em {
+  color: #f08a55;
+}
+.op.sube-premium em {
+  color: #d9c9a3;
+}
+.act-grupo {
+  margin-bottom: 20px;
+}
+.act-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.act-grupo h4 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--gris);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tipo-expedition h4 {
+  color: #f08a55;
+}
+.tipo-xanadu h4,
+.tipo-empresa h4 {
+  color: #d9c9a3;
+}
+.act-grupo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+/* Exigencia: tres puntos */
+.exige {
+  display: inline-flex;
+  gap: 3px;
+  flex: none;
+}
+.exige i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 247, 234, 0.18);
+}
+.exige i.on {
+  background: #f08a55;
+}
+
+/* ---------- Resumen ---------- */
+.arma-form {
+  display: grid;
+  gap: 16px;
+  padding: 26px;
+  border-radius: 14px;
+  background: var(--noche);
+}
+.arma-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gris);
+}
+.arma-form input {
+  font: 600 17px var(--texto);
+  color: var(--crema);
+  background: var(--selva);
+  border: 1px solid rgba(226, 192, 106, 0.3);
+  border-radius: 8px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+/* El nivel cambia solo: aviso y porqué */
+.nivel-nuevo {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--c);
+  color: var(--crema);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  font-size: 14px;
+  animation: aparece-aviso 0.5s ease;
+}
+.nivel-nuevo b {
+  color: var(--c);
+}
+@keyframes aparece-aviso {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.res-cab {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--linea);
+}
+.res-cab img {
+  width: 48px;
+  height: auto;
+  flex: none;
+}
+.res-cab > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.res-cab small {
+  color: var(--gris);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.res-cab b {
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--c);
+}
+.res-cab span {
+  color: var(--gris);
+  font-size: 14px;
+}
+.por-que {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--gris);
+}
+.res-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+}
+.res-lista li {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  column-gap: 10px;
+}
+.res-lista span {
+  color: var(--gris);
+}
+.res-lista em {
+  grid-column: 2;
+  font-style: normal;
+  color: #e8a33d;
+  font-size: 12px;
+  font-weight: 700;
+}
+.arma-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 14px;
+  border-top: 1px solid var(--linea);
+}
+.arma-total > span:first-child {
+  color: var(--gris);
+}
+.arma-total b {
+  font-family: var(--display);
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+}
+.arma-total s {
+  color: var(--gris);
+  font-size: 14px;
+  margin-right: 8px;
+}
+.arma-total small {
+  color: var(--gris);
+  font-size: 14px;
+}
+.arma-ahorro {
+  font-size: 14px;
+  color: var(--oro-vivo);
+  margin: -8px 0 0;
+}
+.arma-nota {
+  font-size: 13px;
+  color: var(--gris);
+  margin: 0;
+  text-align: center;
+}
+.form-aviso {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(0, 166, 166, 0.15);
+  color: var(--crema);
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .arma {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arma-resumen {
+    position: static;
+    margin-top: 8px;
+  }
+}
+@media (max-width: 520px) {
+  .leyenda {
+    margin-left: 0;
+    width: 100%;
+  }
+  .act {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  .act > span {
+    flex-basis: calc(100% - 30px);
+  }
+  .act .exige {
+    margin-left: 30px;
+  }
+  .act em {
+    margin-left: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nivel-nuevo {
+    animation: none;
+  }
+}

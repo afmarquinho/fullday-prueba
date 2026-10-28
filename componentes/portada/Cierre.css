@@ -1,0 +1,63 @@
+/* Cierre de la portada: pregunta final y dos caminos (armar el viaje o escribir). */
+.cierre {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 32px;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.cierre h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1.05;
+  max-width: 16ch;
+}
+.cierre p {
+  margin: 0;
+  color: #e9e2d2;
+  max-width: 52ch;
+}
+.cierre-botones {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+.cierre-botones a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 32px;
+  border: 2px solid var(--oro);
+  border-radius: 4px;
+  color: var(--crema);
+  font-weight: 700;
+  text-decoration: none;
+}
+/* Comprar: turquesa */
+.cierre-botones .cierre-armar {
+  background: var(--compra);
+  border-color: var(--compra);
+  color: var(--noche);
+}
+
+@media (max-width: 820px) {
+  .cierre {
+    padding: 80px 16px;
+  }
+  .cierre h2 {
+    font-size: clamp(32px, 9vw, 56px);
+    max-width: none;
+  }
+  .cierre-botones a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,39 @@
+.cab-pagina {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+  padding-block: 64px 40px;
+}
+.cab-pagina h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 12px 0 0;
+}
+.cab-pagina p {
+  color: var(--gris);
+  margin: 0 0 10px;
+  max-width: 46ch;
+  font-size: 19px;
+}
+.aviso-maqueta {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--oro-vivo);
+  border: 1px dashed var(--linea);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+@media (max-width: 820px) {
+  .cab-pagina {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding-block: 40px 24px;
+  }
+}

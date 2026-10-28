@@ -1,0 +1,191 @@
+/* Mapa isométrico de teselas (solo CSS 3D). Cada tesela es una losa con tapa y dos caras visibles (sur y oeste). */
+.iso {
+  position: relative;
+  margin: 0 auto;
+  perspective: 1800px;
+  touch-action: pan-y;
+}
+.iso-giro {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.plano {
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: rotateX(57deg) rotateZ(-45deg);
+}
+.tesela {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.9s cubic-bezier(0.2, 1.3, 0.4, 1),
+    opacity 0.5s;
+  transition-delay: var(--d);
+}
+.tesela > i {
+  position: absolute;
+  inset: 0;
+  background: var(--c1);
+  transform: translateZ(var(--h));
+}
+.tesela::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--h);
+  background: var(--c2);
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+.tesela::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--h);
+  height: 100%;
+  background: var(--c3);
+  transform-origin: left;
+  transform: rotateY(-90deg);
+}
+.tesela.agua > i {
+  background: linear-gradient(135deg, var(--c1), color-mix(in srgb, var(--c1) 80%, #fff) 50%, var(--c1));
+  background-size: 300% 300%;
+  animation: brillo-agua 6s ease-in-out infinite alternate;
+  animation-delay: var(--d);
+}
+@keyframes brillo-agua {
+  to {
+    background-position: 100% 100%;
+  }
+}
+/* Mientras no está "lista", todo espera abajo y transparente para entrar en ola */
+.iso:not(.lista) .tesela {
+  transform: translateZ(-60px);
+  opacity: 0;
+}
+/* Adornos parados (árboles, casas, palmas, frailejones) y paradas: miran siempre a la cámara */
+.adorno,
+.pin {
+  position: absolute;
+  transform-origin: 50% 100%;
+  transform: translateZ(var(--z)) rotateZ(45deg) rotateX(-57deg);
+  transition:
+    transform 0.9s cubic-bezier(0.2, 1.3, 0.4, 1),
+    opacity 0.5s;
+  transition-delay: var(--d);
+}
+.iso:not(.lista) .adorno {
+  opacity: 0;
+  transform: translateZ(calc(var(--z) - 40px)) rotateZ(45deg) rotateX(-57deg);
+}
+.adorno svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* Paradas del recorrido */
+.pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 5;
+}
+.iso:not(.lista) .pin {
+  opacity: 0;
+}
+.pin-et {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 4px 4px 4px;
+  border-radius: 999px;
+  background: rgba(11, 31, 26, 0.86);
+  border: 1px solid rgba(226, 192, 106, 0.5);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--crema);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  transition:
+    background 0.3s,
+    transform 0.35s cubic-bezier(0.2, 1.6, 0.4, 1),
+    opacity 0.3s;
+}
+/* El nombre se abre en la parada de hoy o al pasar el mouse */
+.pin-n {
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.4s;
+  display: inline-block;
+}
+.pin.hoy .pin-n,
+.pin:hover .pin-n,
+.pin:focus-visible .pin-n {
+  max-width: 200px;
+}
+.pin.hoy .pin-et,
+.pin:hover .pin-et {
+  padding-right: 10px;
+}
+.pin-et b {
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--noche);
+  color: var(--oro);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.pin-palo {
+  width: 2px;
+  height: var(--palo, 22px);
+  background: linear-gradient(var(--oro), rgba(226, 192, 106, 0));
+}
+.pin.futuro .pin-et {
+  opacity: 0.45;
+}
+.pin.hoy .pin-et {
+  background: var(--oro);
+  color: var(--noche);
+  transform: translateY(-6px) scale(1.08);
+}
+/* Ruta: un tramo por día; se dibuja hasta el día que lees */
+.ruta-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.ruta-svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: var(--l);
+  stroke-dashoffset: var(--l);
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ruta-svg .hecho {
+  stroke-dashoffset: 0;
+}
+.ruta-svg .tramo {
+  stroke: var(--ruta, var(--oro-vivo));
+  stroke-width: 4;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--ruta, #f2d27e) 60%, transparent));
+}
+.ruta-svg .sombra {
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 4;
+}
